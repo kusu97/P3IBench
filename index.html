@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="P³IBench: benchmarking proactive video assistants across perception, prediction, and intervention in real-life streaming scenarios.">
+  <meta name="theme-color" content="#f8f7f3">
+  <title>P³IBench — From Perception to Prediction and Intervention</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="P cubed I Bench home">P<sup>3</sup>I<span>Bench</span><span class="brand-dot"></span></a>
+    <nav aria-label="Main navigation"><a href="#capabilities">Capabilities</a><a href="#benchmark">Benchmark</a><a href="#results">Results</a><a href="#resources">Resources <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero section-shell" id="top">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span><span class="release-status">Research release</span><span class="eyebrow-line" aria-hidden="true"></span><span class="eyebrow-description">A benchmark for proactive video assistance</span></div>
+      <h1>P<sup>3</sup>I<span>Bench</span></h1>
+      <h2 class="paper-title">From Perception to Prediction and Intervention:<br class="desktop-break"> Benchmarking Proactive Video Assistants in Real-Life Scenarios</h2>
+      <p class="hero-message">See what happens. Anticipate what’s next.<br> <span>Know when and how to help.</span></p>
+      <div class="resource-links" data-resources></div>
+      <div class="hero-stream" aria-label="Three proactive capabilities from Figure 1">
+        <div class="stream-topline"><span class="micro">ONE STREAM. THREE KINDS OF ASSISTANCE.</span><span class="micro">OBSERVE <span aria-hidden="true">→</span> DECIDE <span aria-hidden="true">→</span> RESPOND</span></div>
+        <div class="hero-scenes">
+          <a class="hero-scene perception" href="#capabilities" data-open-case="0"><div class="scene-heading"><span>01 / Perception</span><span class="scene-icon" aria-hidden="true"><img src="assets/icons/eye.svg" alt="" width="24" height="24"></span></div><div class="scene-image"><img src="assets/frames/perception-3.jpg" alt="A person opens a door for the second time" fetchpriority="high" width="742" height="556"><span class="frame-time">235.5 s</span></div><div class="mini-timeline"><i></i><i></i><i class="active"></i><i></i></div><p>Recognize the event.</p><span class="scene-caption">Second door opening detected.</span></a>
+          <a class="hero-scene prediction" href="#capabilities" data-open-case="1"><div class="scene-heading"><span>02 / Prediction</span><span class="scene-icon" aria-hidden="true"><img src="assets/icons/triangle-alert.svg" alt="" width="24" height="24"></span></div><div class="scene-image"><img src="assets/frames/prediction-3.jpg" alt="An approaching vehicle creates an imminent collision risk" width="744" height="418"><span class="frame-time">18.8 s</span></div><div class="mini-timeline"><i></i><i></i><i class="active"></i><i></i></div><p>Anticipate the risk.</p><span class="scene-caption">Warn before a collision.</span></a>
+          <a class="hero-scene intervention" href="#capabilities" data-open-case="2"><div class="scene-heading"><span>03 / Intervention</span><span class="scene-icon" aria-hidden="true"><img src="assets/icons/hand-helping.svg" alt="" width="24" height="24"></span></div><div class="scene-image"><img src="assets/frames/intervention-3.jpg" alt="A shopper approaches checkout with an item still missing" width="744" height="418"><span class="frame-time">355 s</span></div><div class="mini-timeline"><i></i><i></i><i class="active"></i><i></i></div><p>Help at the right moment.</p><span class="scene-caption">Remember the missing tomatoes.</span></a>
+        </div>
+        <div class="stream-footnote"><span>Benchmark examples · Figure 1</span><span>Correct content is only half the story. Timing matters.</span></div>
+      </div>
+    </section>
+
+    <section class="abstract section-shell" aria-labelledby="abstract-title">
+      <div><span class="section-number">THE IDEA</span><h2 id="abstract-title">Understanding video<br> is just the beginning.</h2></div>
+      <div><p class="abstract-text">Recent multimodal large language models have advanced video understanding, but existing benchmarks mainly evaluate whether models can interpret observed visual content. In real-world scenarios, assistants must additionally anticipate what assistance is needed and decide when to provide it. To address this gap, we introduce P³IBench, a benchmark for proactive video understanding in real-life streaming scenarios. It evaluates three complementary capabilities: daily perception, risk prediction and intervention. We benchmark 12 representative open-source and proprietary video-language models, including streaming and adapted non-streaming systems. Our evaluation shows that current models struggle to make well-calibrated response decisions. Finally, we construct additional proactive training data and train P³I-Assistant-4B, achieving improvements on several tasks, though gains remain uneven across capabilities. Together, these findings show that effective proactive assistance requires not only visual understanding, but also precise response timing and appropriate restraint.</p><span class="source-note">Abstract</span></div>
+    </section>
+
+    <section class="section-shell section-block" id="capabilities">
+      <div class="section-heading"><div><span class="section-number">01 / CAPABILITIES</span><h2>More than knowing what you see.</h2></div><p>One initial instruction. An unfolding video.<br> The assistant decides whether and when to respond.</p></div>
+      <div class="case-tabs" role="tablist" aria-label="Proactive capability"><button id="tab-perception" role="tab" aria-selected="true" aria-controls="case-panel" tabindex="0" data-case="0">01 <span>Perception</span></button><button id="tab-prediction" role="tab" aria-selected="false" aria-controls="case-panel" tabindex="-1" data-case="1">02 <span>Prediction</span></button><button id="tab-intervention" role="tab" aria-selected="false" aria-controls="case-panel" tabindex="-1" data-case="2">03 <span>Intervention</span></button></div>
+      <div id="case-panel" class="case-panel perception" role="tabpanel" aria-labelledby="tab-perception"></div>
+      <p class="source-note">Figure 1 · Illustrative target responses. Later frames provide context and do not justify earlier responses.</p>
+    </section>
+
+    <section class="benchmark-wrap" id="benchmark"><div class="section-shell section-block">
+      <div class="section-heading"><div><span class="section-number">02 / BENCHMARK</span><h2>Real scenarios. Precise response targets.</h2></div><p>Everyday monitoring, emerging risks,<br> and goal-conditioned assistance.</p></div>
+      <div class="stat-strip"><div><strong>429</strong><span>unique videos</span></div><div><strong>533</strong><span>video-query samples</span></div><div><strong>836</strong><span>response targets</span></div><div><strong>5</strong><span>task groups</span></div></div>
+      <div class="dataset-viz"><div class="composition"><div class="chart-heading"><h3>A spectrum of proactive tasks</h3><span class="micro">SAMPLES</span></div><div class="composition-main"><div id="donut" class="donut" role="img" aria-label="Task distribution: 233 Event Monitoring, 50 Object Monitoring, 100 Accident Warning, 100 Crime Alert, 50 Event Intervention"><div><strong>533</strong><span>samples</span></div></div><div id="task-legend"></div></div></div><div class="durations"><div class="chart-heading"><h3>From seconds to minutes</h3><span class="micro">VIDEO DURATION</span></div><div class="duration-key"><span>— Min–max</span><span>● Median</span></div><div id="duration-chart"></div><p class="source-note">Seconds · exact min / median / max on each row</p></div></div>
+      <div class="construction">
+        <div class="construction-heading">
+          <h3>Quality by construction:<span> reliable response targets.</span></h3>
+        </div>
+        <ul class="quality-highlights" aria-label="Benchmark quality principles">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Task-specific annotation</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Temporal verification</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Human review</li>
+        </ul>
+      </div>
+      <p class="source-note">Section 3.1 · Each task uses its own construction and verification procedure.</p>
+    </div></section>
+
+    <section class="section-shell section-block" id="evaluation">
+      <div class="section-heading"><div><span class="section-number">03 / EVALUATION</span><h2>The right answer, at the right time.</h2></div><p>Evaluate what to say, when to say it,<br> and when to stay silent.</p></div>
+      <div class="protocol">
+        <div class="protocol-track"><div class="protocol-step"><span class="step-symbol">01</span><h3>Observe causally</h3><p>Past and current frames only.</p></div><span class="protocol-arrow" aria-hidden="true">→</span><div class="protocol-step"><span class="step-symbol">02</span><h3>Stay silent</h3><p>Until assistance is warranted.</p></div><span class="protocol-arrow" aria-hidden="true">→</span><div class="protocol-step response-step"><span class="step-symbol">03</span><h3>Respond selectively</h3><p>Useful content. Appropriate timing.</p></div></div>
+        <div class="scoring">
+          <div class="scoring-heading"><h3>Proactive Response Score <span>(PRS)</span></h3><span class="score-scale">0–100 · Higher is better</span></div>
+          <div class="score-highlights">
+            <article><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg><h4>Content</h4><p>Reward accurate answers.</p></article>
+            <article><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h4>Timing</h4><p>Reward temporal alignment.</p></article>
+            <article><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16M8 4v8m8 0v8"/><circle cx="8" cy="8" r="2"/><circle cx="16" cy="16" r="2"/></svg><h4>Response control</h4><p>Penalize repetition and missed targets.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="source-note">Section 3.3 · Evaluation protocol and metric definition.</p>
+    </section>
+
+    <section class="section-shell section-block" id="results">
+      <div class="section-heading"><div><span class="section-number">04 / FINDINGS</span><h2>A persistent gap in proactive assistance.</h2></div><p>12 evaluated models, plus P³I-Assistant-4B.<br> No model is reliable across all three capabilities.</p></div>
+      <div class="results-panel"><div class="results-toolbar"><div><label for="task-select">TASK</label><select id="task-select"><option value="5">Overall</option><option value="0">Event Monitoring</option><option value="1">Object Monitoring</option><option value="2">Accident Warning</option><option value="3">Crime Alert</option><option value="4">Event Intervention</option></select></div><fieldset class="metric-switch"><legend class="sr-only">Response score metric</legend><label><input type="radio" name="metric" value="b" checked><span>PRS-B</span></label><label><input type="radio" name="metric" value="u"><span>PRS-U</span></label></fieldset></div><div class="chart-legend"><span class="offline">Adapted offline</span><span class="native">Native proactive</span><span class="ours">Ours · native proactive</span></div><div class="chart-axis"><span id="ranking-title">Overall · PRS-B ↑</span><span>0 — 100</span></div><div id="ranking-chart" aria-live="polite"></div><div class="results-note">Tables 2 &amp; 5 · Higher is better. Overall averages five tasks equally; Event averages its three subsets equally.</div></div>
+      <div class="findings"><article><span class="finding-index">01</span><h3>Capability is uneven.</h3><p>The strongest overall system reaches just <strong>46.59 PRS-B</strong>. Goal-conditioned intervention remains particularly difficult.</p></article><article><span class="finding-index">02</span><h3>Speaking is hard to calibrate.</h3><p>Adapted offline models tend to over-respond. Native proactive models often miss warranted responses.</p></article><article><span class="finding-index">03</span><h3>Timing is still a bottleneck.</h3><p>Responses can arrive prematurely or too late. Comparing PRS-U and PRS-B reveals temporal misalignment.</p></article></div>
+    </section>
+
+    <section class="assistant-wrap" id="assistant"><div class="section-shell section-block"><div class="section-heading"><div><span class="section-number">05 / A STEP FORWARD</span><h2>P³I-Assistant-4B</h2></div><p>Targeted post-training helps.<br> The gains remain uneven across tasks.</p></div><div class="training-stages" id="training-stages"></div><div class="training-detail"><div><h3>Improvement is not uniform.</h3><p>Accident Warning improves substantially, while Event Intervention remains difficult. Overall gains do not imply progress on every task.</p><span class="source-note">Table 5 · PRS-B · Base → SFT → RL</span></div><div class="training-table-wrap"><table id="training-table"><caption class="sr-only">PRS-B by task and post-training stage</caption><thead><tr><th scope="col">Task</th><th scope="col">Base</th><th scope="col">+ SFT</th><th scope="col">+ RL</th></tr></thead><tbody></tbody></table></div></div></div></section>
+
+    <section class="section-shell section-block" id="failure-cases"><div class="section-heading"><div><span class="section-number">06 / LOOK CLOSER</span><h2>Where proactive assistance breaks down.</h2></div><p>Real response traces reveal failures<br> that a correct answer alone cannot explain.</p></div><div id="failures"></div><p class="source-note">Appendix D · Figure 13 · Instructions and reference targets are abridged. Later frames provide context and do not justify earlier responses.</p></section>
+
+    <section class="resources-section section-shell" id="resources"><span class="section-number">RESEARCH RESOURCES</span><h2>Build toward better<br> proactive video assistants.</h2><p>Paper, data, and code links will be added here when available.</p><div class="resource-links" data-resources></div></section>
+  </main>
+  <footer class="section-shell"><a class="wordmark" href="#top">P<sup>3</sup>I<span>Bench</span><span class="brand-dot"></span></a><p>Perception. Prediction. Intervention.</p><a href="#top">Back to top ↑</a></footer>
+  <noscript><p class="noscript-message">Enable JavaScript to explore the case timelines and model results. The abstract and research overview remain available above.</p></noscript>
+</body>
+</html>
