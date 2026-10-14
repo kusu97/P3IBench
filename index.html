@@ -67,14 +67,52 @@
     <section class="section-shell section-block" id="evaluation">
       <div class="section-heading"><div><span class="section-number">03 / EVALUATION</span><h2>The right answer, at the right time.</h2></div><p>Evaluate what to say, when to say it,<br> and when to stay silent.</p></div>
       <div class="protocol">
-        <div class="protocol-track"><div class="protocol-step"><span class="step-symbol">01</span><h3>Observe causally</h3><p>Past and current frames only.</p></div><span class="protocol-arrow" aria-hidden="true">→</span><div class="protocol-step"><span class="step-symbol">02</span><h3>Stay silent</h3><p>Until assistance is warranted.</p></div><span class="protocol-arrow" aria-hidden="true">→</span><div class="protocol-step response-step"><span class="step-symbol">03</span><h3>Respond selectively</h3><p>Useful content. Appropriate timing.</p></div></div>
+        <div class="evaluation-context"><span class="micro">STREAMING SETUP</span><p>Models observe only past and current frames and decide when to respond.</p></div>
         <div class="scoring">
           <div class="scoring-heading"><h3>Proactive Response Score <span>(PRS)</span></h3><span class="score-scale">0–100 · Higher is better</span></div>
-          <div class="score-highlights">
-            <article><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg><h4>Content</h4><p>Reward accurate answers.</p></article>
-            <article><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h4>Timing</h4><p>Reward temporal alignment.</p></article>
-            <article><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16M8 4v8m8 0v8"/><circle cx="8" cy="8" r="2"/><circle cx="16" cy="16" r="2"/></svg><h4>Response control</h4><p>Penalize repetition and missed targets.</p></article>
+          <p class="prs-overview">Both metrics follow the same three scoring steps. They differ only in how responses are matched to targets.</p>
+          <div class="prs-shared">
+            <article aria-labelledby="prs-response-title">
+              <div class="prs-stage-heading"><span class="prs-step-number">01</span><h4 id="prs-response-title">Score a response</h4></div>
+              <p class="prs-stage-intro">Evaluate response o<sub>j</sub> against its matched target g<sub>i</sub>: correct content earns more when timing is close.</p>
+              <div class="prs-equation prs-pairwise" role="math" aria-label="The pairwise score equals content correctness times the exponential of minus 0.05 times the absolute difference between response time and target time.">
+                <math aria-hidden="true"><mrow><mi>s</mi><mo stretchy="false">(</mo><msub><mi>o</mi><mi>j</mi></msub><mo>,</mo><msub><mi>g</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>=</mo></mrow></math>
+                <math aria-hidden="true"><mrow><mi>c</mi><mo stretchy="false">(</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>j</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>·</mo><msup><mi>e</mi><mrow><mo>−</mo><mn>0.05</mn><mo stretchy="false">|</mo><msub><mi>t</mi><mi>j</mi></msub><mo>−</mo><msub><mi>τ</mi><mi>i</mi></msub><mo stretchy="false">|</mo></mrow></msup></mrow></math>
+              </div>
+              <p><strong>c:</strong> correctness of predicted content ŷ<sub>j</sub> against reference y<sub>i</sub>—rules (0/1), or LLM-judged [0, 1] for intervention.<br><strong>t<sub>j</sub>, τ<sub>i</sub>:</strong> response and target times, in seconds.</p>
+            </article>
+            <article aria-labelledby="prs-target-title">
+              <div class="prs-stage-heading"><span class="prs-step-number">02</span><h4 id="prs-target-title">Score a target</h4></div>
+              <p class="prs-stage-intro">Take the best response score from Step 1, then divide by the number of matched responses to penalize repetition.</p>
+              <div class="prs-equation prs-target" role="math" aria-label="With matched responses, the target score is the best pairwise score divided by the number of matched responses. An unmatched target scores zero.">
+                <math aria-hidden="true"><mrow><msub><mi>S</mi><mi>i</mi></msub><mo>=</mo></mrow></math>
+                <math aria-hidden="true"><mfrac><mrow><munder><mo>max</mo><mrow><msub><mi>o</mi><mi>j</mi></msub><mo>∈</mo><msub><mi>O</mi><mi>i</mi></msub></mrow></munder><mi>s</mi><mo stretchy="false">(</mo><msub><mi>o</mi><mi>j</mi></msub><mo>,</mo><msub><mi>g</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mo>|</mo><msub><mi>O</mi><mi>i</mi></msub><mo>|</mo></mrow></mfrac></math>
+              </div>
+              <p><strong>O<sub>i</sub>:</strong> all responses matched to target i, including zero-scoring replies.<br><strong>No matched response:</strong> the target scores S<sub>i</sub> = 0.</p>
+            </article>
           </div>
+          <section class="prs-sample" aria-labelledby="prs-sample-title">
+            <div class="prs-stage-heading"><span class="prs-step-number">03</span><h4 id="prs-sample-title">Score the whole sample</h4></div>
+            <p class="prs-stage-intro">Average all target scores from Step 2 and multiply by 100. The matching rule determines which PRS variant is reported.</p>
+            <div class="prs-variants">
+              <article class="prs-variant">
+                <div class="prs-variant-heading"><h5>PRS-U</h5><span>Unidirectional</span></div>
+                <p>Match each response to the <strong>most recent target at or before its emission time</strong>.</p>
+                <div class="prs-equation" role="math" aria-label="PRS-U equals 100 divided by the number of targets, times the sum of their unidirectional target scores from Step 2.">
+                  <math aria-hidden="true"><mrow><mtext>PRS-U</mtext><mo>=</mo><mfrac><mn>100</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msubsup><mi>S</mi><mi>i</mi><mtext>U</mtext></msubsup></mrow></math>
+                </div>
+                <p class="prs-exception">A response emitted before the first target is assigned to that target with a score of 0. This response still counts in the denominator when computing the target score in Step 2.</p>
+              </article>
+              <article class="prs-variant">
+                <div class="prs-variant-heading"><h5>PRS-B</h5><span>Bidirectional</span></div>
+                <p>Match each response to the <strong>nearest target in time</strong>, allowing early responses to match future targets.</p>
+                <div class="prs-equation" role="math" aria-label="PRS-B equals 100 divided by the number of targets, times the sum of their bidirectional target scores from Step 2.">
+                  <math aria-hidden="true"><mrow><mtext>PRS-B</mtext><mo>=</mo><mfrac><mn>100</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msubsup><mi>S</mi><mi>i</mi><mtext>B</mtext></msubsup></mrow></math>
+                </div>
+              </article>
+            </div>
+            <p class="prs-symbols">N is the number of ground-truth targets in the sample. S<sub>i</sub><sup>U</sup> and S<sub>i</sub><sup>B</sup> are the Step 2 target scores under the respective matching rules.</p>
+          </section>
         </div>
       </div>
       <p class="source-note">Section 3.3 · Evaluation protocol and metric definition.</p>
