@@ -121,7 +121,52 @@
     <section class="section-shell section-block" id="results">
       <div class="section-heading"><div><span class="section-number">04 / FINDINGS</span><h2>A persistent gap in proactive assistance.</h2></div><p>12 evaluated models, plus P³I-Assistant-4B.<br> No model is reliable across all three capabilities.</p></div>
       <div class="results-panel"><div class="results-toolbar"><div><label for="task-select">TASK</label><select id="task-select"><option value="5">Overall</option><option value="0">Event Monitoring</option><option value="1">Object Monitoring</option><option value="2">Accident Warning</option><option value="3">Crime Alert</option><option value="4">Event Intervention</option></select></div><fieldset class="metric-switch"><legend class="sr-only">Response score metric</legend><label><input type="radio" name="metric" value="b" checked><span>PRS-B</span></label><label><input type="radio" name="metric" value="u"><span>PRS-U</span></label></fieldset></div><div class="chart-legend"><span class="offline">Adapted offline</span><span class="native">Native proactive</span><span class="ours">Ours · native proactive</span></div><div class="chart-axis"><span id="ranking-title">Overall · PRS-B ↑</span><span>0 — 100</span></div><div id="ranking-chart" aria-live="polite"></div><div class="results-note">Tables 2 &amp; 5 · Higher is better. Overall averages five tasks equally; Event averages its three subsets equally.</div></div>
-      <div class="findings"><article><span class="finding-index">01</span><h3>Capability is uneven.</h3><p>The strongest overall system reaches just <strong>46.59 PRS-B</strong>. Goal-conditioned intervention remains particularly difficult.</p></article><article><span class="finding-index">02</span><h3>Speaking is hard to calibrate.</h3><p>Adapted offline models tend to over-respond. Native proactive models often miss warranted responses.</p></article><article><span class="finding-index">03</span><h3>Timing is still a bottleneck.</h3><p>Responses can arrive prematurely or too late. Comparing PRS-U and PRS-B reveals temporal misalignment.</p></article></div>
+      <div class="findings">
+        <article class="finding-summary">
+          <span class="finding-index">01 / CAPABILITY COVERAGE</span>
+          <h3>Current models remain far from reliable proactive assistance.</h3>
+          <p>Nine of the 12 baselines score below 30 Overall PRS-B. <strong>GPT-5.6-Luna performs best overall, at 46.59 PRS-B</strong>. It has an advantage in risk prediction and intervention but still struggles with timely event and object perception. Intervention is particularly difficult: the best baseline achieves only <strong>29.85 PRS-B</strong>.</p>
+          <p>These results highlight a persistent gap between conventional video understanding and proactive assistance. Models must understand an evolving scene, follow complex instructions, and respond at the right moment. Current systems still struggle to meet these demands together.</p>
+          <p class="source-note">Section 4.2 · Table 2 · Baselines only; P³I-Assistant-4B is reported separately.</p>
+        </article>
+        <article class="finding-with-chart">
+          <div class="finding-copy">
+            <span class="finding-index">02 / RESPONSE CONTROL</span>
+            <h3>Repeated replies and excessive silence both limit performance.</h3>
+            <p><strong>Adapted offline models often produce unnecessary repeated replies.</strong> They tend to keep answering as in static question answering. On Accident Warning, Qwen2.5-VL-3B-Instruct emits at least three replies in 53 of 100 GT windows. Its score rises from <strong>21.27 PRS-B to 71.39</strong> when the repetition penalty is removed, using the same outputs. This shows how redundancy can substantially reduce the benefit of a correct, timely reply.</p>
+            <p><strong>Native proactive models tend to reduce repetition but can remain silent when a reply is needed.</strong> JoyVL and MMDuet2 produce no reply in 79% and 100% of Accident Warning GT windows, respectively (Figure 3). This may reflect imbalanced supervision for silence and informative replies, suggesting a need for better training of response decisions.</p>
+          </div>
+          <figure class="analysis-figure" aria-labelledby="frequency-title">
+            <h4 id="frequency-title">Repeated replies and missed response windows</h4>
+            <span class="analysis-scope">Accident Warning · 100 GT windows · selected models</span>
+            <div id="frequency-legend" class="frequency-legend"></div>
+            <div id="frequency-chart" class="frequency-chart"></div>
+            <figcaption>Figure 3 · Replies counted inside each ground-truth (GT) response window. Zero in-window replies can coexist with responses elsewhere in the video. Best-reply ablation: Tables 2 &amp; 8.</figcaption>
+          </figure>
+        </article>
+        <article class="finding-summary">
+          <span class="finding-index">03 / TEMPORAL ALIGNMENT</span>
+          <h3>Models struggle to identify the right moment to respond.</h3>
+          <p><strong>Event perception is substantially less timely than object perception.</strong> Among GT windows with a response, GPT-5.6-Luna's median first-response latency is <strong>24.7 s for Event Monitoring versus 1.5 s for Object Monitoring</strong>. Understanding events requires following continuous, complex contexts; this weakness also affects timely prediction and intervention.</p>
+          <p><strong>Models also tend to respond before the annotated target time.</strong> Qwen3-VL-8B-Instruct scores <strong>29.21 PRS-U versus 68.83 PRS-B</strong> on Accident Warning, where PRS-B allows early replies to match future targets. Early warnings can be appropriate, but the gap suggests difficulty locating the boundary at which a response is required. Both metrics are therefore important for assessing temporal alignment.</p>
+          <p class="source-note">Section 4.2 · Table 2 &amp; Figure 4 · Latency statistics exclude GT windows with no response.</p>
+        </article>
+        <article class="finding-with-chart">
+          <div class="finding-copy">
+            <span class="finding-index">04 / STREAMING CONTEXT</span>
+            <h3>Dynamic visual context remains difficult to model.</h3>
+            <p><strong>Longer videos and later events are more challenging.</strong> The analyses of Qwen3-VL-4B-Instruct and JoyVL show this pattern, likely because the accumulated context becomes more complex (Figure 5).</p>
+            <p><strong>A higher frame rate can help object perception while hurting risk prediction.</strong> For Qwen3-VL-4B-Instruct, increasing sampling from 1 to 2 FPS raises Object Monitoring PRS-B from <strong>33.82 to 42.55</strong>, but lowers Accident Warning from <strong>41.78 to 30.02</strong>.</p>
+            <p><strong>Retaining more history can help.</strong> In the separate history-window ablation, Accident Warning PRS-B rises from <strong>20.09 with one historical frame to 41.78 with all frames</strong>. Together, the ablations suggest that current models handle retained visual history more effectively than richer dynamic input arriving at each step.</p>
+          </div>
+          <figure class="analysis-figure" aria-labelledby="context-title">
+            <h4 id="context-title">More history can help; higher FPS can lower scores.</h4>
+            <span class="analysis-scope">Qwen3-VL-4B-Instruct · Accident Warning · PRS-B</span>
+            <div id="context-chart" class="context-panels"></div>
+            <figcaption>Section 4.3 · Figure 5 &amp; Tables 3–4 · The two panels show independent ablations, with a shared 0–50 plotting range. PRS-B itself uses a 0–100 scale.</figcaption>
+          </figure>
+        </article>
+      </div>
     </section>
 
     <section class="assistant-wrap" id="assistant"><div class="section-shell section-block"><div class="section-heading"><div><span class="section-number">05 / A STEP FORWARD</span><h2>P³I-Assistant-4B</h2></div><p>Targeted post-training helps.<br> The gains remain uneven across tasks.</p></div><div class="training-stages" id="training-stages"></div><div class="training-detail"><div><h3>Improvement is not uniform.</h3><p>Accident Warning improves substantially, while Event Intervention remains difficult. Overall gains do not imply progress on every task.</p><span class="source-note">Table 5 · PRS-B · Base → SFT → RL</span></div><div class="training-table-wrap"><table id="training-table"><caption class="sr-only">PRS-B by task and post-training stage</caption><thead><tr><th scope="col">Task</th><th scope="col">Base</th><th scope="col">+ SFT</th><th scope="col">+ RL</th></tr></thead><tbody></tbody></table></div></div></div></section>

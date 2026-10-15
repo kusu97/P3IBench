@@ -1077,11 +1077,9 @@ sup {
   line-height:1.8
 }
 .findings {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:36px;
-  margin-top:36px
+  margin-top:42px;
 }
+.findings > article + article { border-top:1px solid var(--line); margin-top:32px; padding-top:32px; }
 .finding-index {
   font-size:13px;
   letter-spacing:1px;
@@ -1090,14 +1088,58 @@ sup {
   margin-bottom:12px
 }
 .findings h3 {
-  font-size:20px;
-  margin-bottom:10px
+  font-size:24px;
+  margin-bottom:14px;
 }
 .findings p {
   font-size:16px;
   color:var(--muted);
   line-height:1.85
 }
+.findings p + p { margin-top:14px; }
+.finding-summary > p { max-width:100ch; }
+.finding-with-chart {
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:32px;
+  align-items:start;
+}
+.finding-copy { min-width:0; }
+.analysis-figure {
+  margin:0;
+  padding:22px;
+  min-width:0;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:12px;
+}
+.analysis-figure h4 { font-size:18px; line-height:1.45; margin:0 0 8px; font-weight:600; }
+.analysis-scope { display:block; font-size:12px; line-height:1.6; color:var(--muted); }
+.findings .source-note, .analysis-figure figcaption {
+  font-family:var(--body-font);
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.65;
+}
+.analysis-figure figcaption { border-top:1px solid #e7ece9; margin-top:20px; padding-top:12px; }
+.frequency-legend { display:flex; flex-wrap:wrap; gap:8px 14px; margin:18px 0 20px; }
+.frequency-legend > span { display:flex; align-items:center; gap:6px; font-size:13px; }
+.frequency-legend i { width:10px; height:10px; border-radius:2px; }
+.frequency-row + .frequency-row { margin-top:18px; }
+.frequency-model { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:3px 10px; margin-bottom:7px; }
+.frequency-model strong { font-size:14px; font-weight:500; }
+.frequency-model > span { font-size:12px; color:var(--muted); }
+.frequency-bar { display:flex; height:30px; border-radius:5px; overflow:hidden; }
+.frequency-bar > span { display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; border-right:1px solid white; }
+.frequency-bar > span:last-child { border-right:0; }
+.context-panels { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; margin-top:22px; }
+.context-panel { min-width:0; }
+.context-panel h5 { font-size:14px; font-weight:600; margin:0 0 12px; }
+.context-axis { display:flex; justify-content:space-between; margin:0 48px 7px 70px; font-size:12px; color:var(--muted); }
+.context-row { display:grid; grid-template-columns:62px minmax(0,1fr) 40px; gap:8px; align-items:center; min-height:33px; font-size:13px; }
+.context-row strong { text-align:right; font-size:14px; font-weight:500; font-variant-numeric:tabular-nums; }
+.context-track { height:15px; background:repeating-linear-gradient(to right,#f0f3f2 0,#f0f3f2 calc(50% - 1px),#dfe6e3 calc(50% - 1px),#dfe6e3 50%); }
+.context-track i { display:block; height:100%; border-radius:0 2px 2px 0; }
 .findings p strong {
   font-weight:600;
   color:var(--ink)
@@ -1417,9 +1459,7 @@ footer p,footer>a:last-child {
   .scoring {
     gap:25px
   }
-  .findings {
-    gap:22px
-  }
+  .finding-with-chart { grid-template-columns:1fr; gap:24px; }
 }
 @media(max-width:700px) {
   html {
@@ -1819,28 +1859,14 @@ footer p,footer>a:last-child {
   .results-note {
     font-size:11px
   }
-  .findings {
-    grid-template-columns:1fr;
-    gap:22px;
-    margin-top:26px
-  }
-  .findings article {
-    display:grid;
-    grid-template-columns:24px 1fr;
-    gap:5px 12px
-  }
-  .finding-index {
-    grid-row:1/3;
-    margin:2px 0 0
-  }
+  .findings { margin-top:30px; }
   .findings h3 {
-    font-size:19px;
-    margin-bottom:3px
+    font-size:22px;
   }
-  .findings p {
-    grid-column:2;
-    font-size:14px
-  }
+  .analysis-figure { padding:18px; }
+  .context-panels { grid-template-columns:1fr; gap:24px; }
+  .context-row { font-size:13px; grid-template-columns:70px minmax(0,1fr) 44px; }
+  .context-axis { margin-left:78px; margin-right:52px; }
   .training-stages {
     margin:29px 0
   }

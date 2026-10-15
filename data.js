@@ -31,6 +31,26 @@ window.P3I = {
     { name: 'VideoChat3', group: 'native', u: [6.08,25.82,44.09,26.83,12.84,23.13], b: [12.91,27.61,53.38,27.90,18.77,28.11] },
     { name: 'P³I-Assistant-4B', group: 'ours', u: [7.47,32.35,32.88,29.67,9.02,22.28], b: [22.77,40.03,87.59,51.21,9.02,42.12] }
   ],
+  analysis: {
+    // Figure 3, Accident Warning. Values are percentages of 100 GT windows.
+    // Values follow the model rows in Figure 3.
+    responseBuckets: [
+      { label: '0 replies', color: '#c1d0da', ink: '#182a32' },
+      { label: '1 reply', color: '#2c7169', ink: '#ffffff' },
+      { label: '2 replies', color: '#f0d2aa', ink: '#182a32' },
+      { label: '3+ replies', color: '#a35b34', ink: '#ffffff' }
+    ],
+    responseFrequency: [
+      { name: 'Qwen2.5-VL-3B-Instruct', group: 'Adapted offline', values: [19, 26, 2, 53] },
+      { name: 'JoyVL', group: 'Native proactive', values: [79, 21, 0, 0] },
+      { name: 'MMDuet2', group: 'Native proactive', values: [100, 0, 0, 0] }
+    ],
+    // Tables 3 and 4: separate ablations, Qwen3-VL-4B, Accident PRS-B.
+    contextAblations: [
+      { name: 'Sampling rate', color: '#c58026', values: [{ label: '0.5 FPS', score: 39.86 }, { label: '1 FPS', score: 41.78 }, { label: '2 FPS', score: 30.02 }] },
+      { name: 'Historical frames', color: '#287ca8', values: [{ label: '1 frame', score: 20.09 }, { label: '2 frames', score: 17.81 }, { label: '4 frames', score: 39.96 }, { label: 'All frames', score: 41.78 }] }
+    ]
+  },
   stages: [
     { name: 'Base', description: 'Qwen3-VL-4B-Instruct', values: [21.35,33.82,41.78,37.03,9.13], overall: 28.62 },
     { name: '+ SFT', description: 'Supervised fine-tuning', values: [18.10,48.62,61.78,47.04,8.05], overall: 36.72 },
