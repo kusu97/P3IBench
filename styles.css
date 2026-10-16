@@ -204,42 +204,49 @@ sup {
 }
 .resource-button {
   min-width:146px;
-  padding:11px 16px;
-  border:1px solid #cfd7d5;
-  border-radius:8px;
+  min-height:48px;
+  padding:12px 18px;
+  border:1px solid #d4dcda;
+  border-radius:10px;
   display:flex;
   align-items:center;
-  gap:10px;
+  justify-content:center;
+  gap:9px;
   background:transparent;
+  box-shadow:0 1px 2px #182a3205;
   line-height:1.2;
   color:var(--ink);
-  text-align:left
+  transition:border-color .15s, color .15s, box-shadow .15s
 }
 .resource-button svg {
-  width:19px;
-  height:19px;
+  flex-shrink:0;
   stroke:currentColor;
   fill:none;
-  stroke-width:1.6
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+.resource-icon {
+  width:20px;
+  height:20px
 }
 .resource-button strong {
   font-size:16px;
   font-weight:600;
-  display:block
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  white-space:nowrap
 }
-.resource-button small {
-  font-size:12px;
-  color:var(--muted);
-  display:block;
-  margin-top:3px;
-  letter-spacing:.25px
+.resource-arrow {
+  width:13px;
+  height:13px;
+  color:var(--muted)
 }
-.resource-button[aria-disabled=true] {
-  cursor:default
-}
-.resource-button:not([aria-disabled]):hover {
-  background:white;
-  border-color:var(--blue)
+.resource-button:hover {
+  border-color:var(--blue);
+  color:var(--blue);
+  box-shadow:0 2px 7px #182a320d
 }
 .hero-stream {
   margin-top:42px;
@@ -567,6 +574,10 @@ sup {
 }
 .time-node {
   flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
   padding:0 0 2px;
   background:transparent;
   border:none;
@@ -1524,13 +1535,6 @@ footer p,footer>a:last-child {
   .resource-button strong {
     font-size:14px
   }
-  .resource-button small {
-    font-size:11px
-  }
-  .resource-button svg {
-    width:15px;
-    height:15px
-  }
   .hero-stream {
     margin-top:32px;
     padding:16px 15px 12px;
@@ -1897,8 +1901,9 @@ footer p,footer>a:last-child {
   }
   .training-stage:not(:last-child):after {
     right:8px;
-    top:30px;
-    font-size:18px
+    top:0;
+    font-size:14px;
+    line-height:1.25
   }
   .training-detail {
     grid-template-columns:1fr;
@@ -2055,7 +2060,6 @@ footer p,footer>a:last-child {
 .findings p, .training-detail p {
   line-height:1.8;
 }
-.resource-button > span { min-width:0; }
 @media(max-width:1000px) {
   .ranking-row { grid-template-columns:210px minmax(0,1fr) 50px; }
 }
@@ -2083,7 +2087,6 @@ footer p,footer>a:last-child {
     padding:12px 7px;
   }
   .resource-button strong { font-size:14px; }
-  .resource-button small { font-size:12px; }
   .hero-scene { grid-template-columns:114px minmax(0,1fr); }
   .scene-image img { min-height:95px; }
   .stream-footnote { flex-wrap:wrap; }
@@ -2115,7 +2118,7 @@ footer p,footer>a:last-child {
   .case-tabs button { flex-direction:column; gap:3px; }
   .ranking-row { grid-template-columns:118px minmax(0,1fr) 42px; gap:7px; }
   .training-stage { padding-left:10px; padding-right:10px; }
-  .training-stage:not(:last-child):after { right:1px; font-size:16px; }
+  .training-stage:not(:last-child):after { right:1px; }
 }
 
 @media(max-width:700px) {

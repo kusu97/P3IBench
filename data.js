@@ -1,7 +1,10 @@
-/* Benchmark statistics and results from the P³IBench paper.
-   Resources are null until a public release is available. */
+/* Public resources, benchmark statistics and results from the P³IBench paper. */
 window.P3I = {
-  resources: { paper: null, dataset: null, code: null },
+  resources: {
+    paper: 'https://arxiv.org/abs/2610.21568',
+    dataset: 'https://huggingface.co/datasets/AstroCuibing/P3IBench',
+    code: 'https://github.com/Cuibing-fundemental/P3IBench'
+  },
   tasks: [
     { name: 'Event Monitoring', short: 'Event', count: 233, color: '#287ca8', min: 122.6, median: 296.8, max: 359.3 },
     { name: 'Object Monitoring', short: 'Object', count: 50, color: '#70afca', min: 5.6, median: 10.6, max: 36.2 },

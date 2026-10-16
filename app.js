@@ -6,15 +6,14 @@
   const framePath = (key, i) => `assets/frames/${key}-${i + 1}.jpg`;
   const format = (number) => number.toFixed(2);
   const icons = {
-    paper: '<path d="M5 3h9l5 5v13H5z"/><path d="M14 3v6h5M8 13h8M8 17h6"/>',
-    dataset: '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/>',
-    code: '<path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-14-2 16"/>'
+    paper: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
+    dataset: '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14a8 3 0 0 0 16 0V5M4 12a8 3 0 0 0 16 0"/>',
+    code: '<path d="m8 8-4 4 4 4m8-8 4 4-4 4M14 5l-4 14"/>'
   };
   document.querySelectorAll('[data-resources]').forEach((container) => {
     container.innerHTML = Object.entries(data.resources).map(([key, url]) => {
       const label = { paper: 'Paper', dataset: 'Dataset', code: 'Code' }[key];
-      const content = `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[key]}</svg><span><strong>${label}</strong><small>${url ? 'Explore resource ↗' : 'Coming soon'}</small></span>`;
-      return url ? `<a class="resource-button" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${content}</a>` : `<button class="resource-button" type="button" aria-disabled="true" aria-label="${label}: coming soon">${content}</button>`;
+      return `<a class="resource-button" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><svg class="resource-icon" viewBox="0 0 24 24" aria-hidden="true">${icons[key]}</svg><strong>${label}<svg class="resource-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></strong></a>`;
     }).join('');
   });
 

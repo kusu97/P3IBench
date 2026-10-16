@@ -17,16 +17,16 @@ For more details, please refer to our paper and project page.
 ## Links
 
 Paper:
-Coming soon.
+https://arxiv.org/abs/2610.21568
 
 Project Page:
 https://kusu97.github.io/P3IBench/
 
 Dataset:
-Coming soon.
+https://huggingface.co/datasets/AstroCuibing/P3IBench
 
 Code:
-Coming soon.
+https://github.com/Cuibing-fundemental/P3IBench
 
 ## Assets
 
